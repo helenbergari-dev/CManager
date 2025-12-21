@@ -11,7 +11,8 @@ while (true)
     Console.WriteLine("=== CUSTOMER MANAGER ===");
     Console.WriteLine("1. Add customer");
     Console.WriteLine("2. Show all customers");
-    Console.WriteLine("3. Remove customer by email");
+    Console.WriteLine("3. Show a specific customer");
+    Console.WriteLine("4. Remove customer by email");
     Console.WriteLine("0. Exit");
     Console.Write("Choose: ");
 
@@ -23,11 +24,15 @@ while (true)
             AddCustomer(customerService);
             break;
 
-            case "2":
-            ShowCustomers(customerService); 
+        case "2":
+            ShowCustomers(customerService);
             break;
 
-            case "3":
+        case "3":
+            ShowSpecificCustomer(customerService);
+            break;
+
+        case "4":
             RemoveCustomer(customerService);
             break;
 
@@ -38,10 +43,8 @@ while (true)
             Console.WriteLine("Invalid choice");
             Console.ReadKey();
             break;
-
     }
 }
-
 
 static void AddCustomer(CustomerService service)
 {
@@ -92,6 +95,30 @@ static void ShowCustomers(CustomerService service)
     Console.ReadKey();
 }
 
+static void ShowSpecificCustomer(CustomerService service)
+{
+    Console.Write("Enter email: ");
+    var email = Console.ReadLine() ?? "";
+
+    var customer = service.GetCustomerByEmail(email);
+
+    if (customer == null)
+    {
+        Console.WriteLine("Customer not found");
+        Console.ReadKey();
+        return;
+    }
+
+    Console.WriteLine();
+    Console.WriteLine($"Name: {customer.FirstName} {customer.LastName}");
+    Console.WriteLine($"Id: {customer.Id}");
+    Console.WriteLine($"Email: {customer.Email}");
+    Console.WriteLine($"Phone: {customer.PhoneNumber}");
+    Console.WriteLine($"Address: {customer.Address.Street}, {customer.Address.PostalCode} {customer.Address.City}");
+
+    Console.ReadKey();
+}
+
 static void RemoveCustomer(CustomerService service)
 {
     Console.Write("Email to remove: ");
@@ -102,3 +129,4 @@ static void RemoveCustomer(CustomerService service)
     Console.WriteLine(removed ? "Customer removed" : "Customer not found");
     Console.ReadKey();
 }
+

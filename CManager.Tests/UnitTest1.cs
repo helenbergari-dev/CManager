@@ -14,10 +14,11 @@ namespace CManager.Tests
         [Fact]
         public void CreateCustomer_ShouldCreateCustomerWithGuidAndSave()
         {
-            
+
+            // Skapar en mock av repository för att isolera CustomerService från filsystemet
             var repoMock = new Mock<ICustomerRepository>();
 
-           
+            // Sätter upp mocken så att LoadCustomers returnerar en tom lista
             repoMock.Setup(r => r.LoadCustomers())
                     .Returns(new List<Customer>());
 
@@ -47,6 +48,8 @@ namespace CManager.Tests
             Assert.Equal("Larsson", created.LastName);
             Assert.Equal("stina@test.se", created.Email);
 
+
+            // Verifierar att SaveCustomers anropas när en kund skapas
             repoMock.Verify(r => r.SaveCustomers(It.IsAny<List<Customer>>()), Times.AtLeastOnce);
         }
     }
