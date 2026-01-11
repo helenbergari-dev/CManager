@@ -20,3 +20,7 @@ Det finns även ett separat testprojekt som innehåller enhetstest för Customer
 
 Applikationen körs genom att starta projektet CManager.Presentation.ConsoleApp i Visual Studio och följa instruktionerna som visas i konsolen.
 
+
+
+AI har använts som ett bollplank under utvecklingsprocessen för att diskutera idéer och felsökning, men all kod är skriven och strukturerad av mig.
+
